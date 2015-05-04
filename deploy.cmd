@@ -97,35 +97,25 @@ IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
 :: 2. Select node version
 call :SelectNodeVersion
 
-:: 3. Install npm packages
-IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
-  echo Installing npm packages...
-  pushd "%DEPLOYMENT_TARGET%"
-  call :ExecuteCmd !NPM_CMD! install
-  IF !ERRORLEVEL! NEQ 0 goto error
-  popd
-)
+:: 3. Install npm packages, bower, grunt, and bower packages
+pushd "%DEPLOYMENT_TARGET%"
 
-:: 4. Install grunt-cli
-IF EXIST "%DEPLOYMENT_TARGET%\Gruntfile.js" (
-  echo Installing grunt-cli...
-  pushd "%DEPLOYMENT_TARGET%"
-  call :ExecuteCmd !NPM_CMD! install grunt-cli -g
-  IF !ERRORLEVEL! NEQ 0 goto error
-  popd
-)
+echo Installing npm packages...
+call :ExecuteCmd !NPM_CMD! install
+IF !ERRORLEVEL! NEQ 0 goto error
 
-:: 5. Install bower and bower packages
-IF EXIST "%DEPLOYMENT_TARGET%\bower.json" (
-  pushd "%DEPLOYMENT_TARGET%"
-  echo Installing bower...
-  call :ExecuteCmd !NPM_CMD! install bower -g
-  IF !ERRORLEVEL! NEQ 0 goto error
-  echo Running bower-install grunt task...
-  call :ExecuteCmd grunt bower-install
-  IF !ERRORLEVEL! NEQ 0 goto error
-  popd
-)
+echo Installing grunt-cli...
+call :ExecuteCmd !NPM_CMD! install grunt-cli -g
+IF !ERRORLEVEL! NEQ 0 goto error
+  
+echo Installing bower...
+call :ExecuteCmd !NPM_CMD! install bower -g
+IF !ERRORLEVEL! NEQ 0 goto error
+
+echo Running bower-install grunt task...
+call :ExecuteCmd grunt bower-install
+IF !ERRORLEVEL! NEQ 0 goto error
+popd
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
