@@ -80,6 +80,10 @@ IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
 	echo Installing npm packages...
 	call :ExecuteCmd npm install
 	IF !ERRORLEVEL! NEQ 0 goto error
+	
+	echo Running npm dedupe
+	call :ExecuteCmd npm dedupe
+	IF !ERRORLEVEL! NEQ 0 goto error
 
 	echo Installing grunt-cli...
 	call :ExecuteCmd npm install grunt-cli -g
