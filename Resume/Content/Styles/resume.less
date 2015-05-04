@@ -1,0 +1,284 @@
+﻿html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+
+    @media(min-width: @grid-float-breakpoint) {
+        font-size: ceil((@font-size-base * 1.25));
+    }
+}
+
+h1, .h1 {
+    @media(min-width: @grid-float-breakpoint) {
+        font-size: ceil((@font-size-h1 * 1.15));
+    }
+}
+
+h2, .h2 {
+    @media(min-width: @grid-float-breakpoint) {
+        font-size: ceil((@font-size-h2 * 1.15));
+    }
+}
+
+h3, .h3 {
+    @media(min-width: @grid-float-breakpoint) {
+        font-size: ceil((@font-size-h3 * 1.15));
+    }
+}
+
+h4, .h4 {
+    @media(min-width: @grid-float-breakpoint) {
+        font-size: ceil((@font-size-h4 * 1.15));
+    }
+}
+
+h5, .h5 {
+    @media(min-width: @grid-float-breakpoint) {
+        font-size: ceil((@font-size-h5 * 1.15));
+    }
+}
+
+h6, .h6 {
+    @media(min-width: @grid-float-breakpoint) {
+        font-size: ceil((@font-size-h6 * 1.15));
+    }
+}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+section {
+    padding-top: @navbar-height + 20;
+    padding-bottom: @navbar-height/2;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.navbar-fixed-top {
+    top: -@navbar-height - 1;
+    .transition(top .7s ease-in-out);
+
+    &.navbar-fixed-top-shown {
+        top: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+    }
+
+    .navbar-header {
+        overflow: hidden;
+
+        a {
+            color: @navbar-inverse-brand-color;
+
+            &:hover,
+            &:focus {
+                text-decoration: none;
+                color: @navbar-inverse-brand-hover-color;
+                background-color: @navbar-inverse-brand-hover-bg;
+            }
+        }
+
+        .navbar-header-logo {
+            float: left;
+            width: 64px;
+            height: 64px;
+            margin: (@navbar-height - 64)/2 5px;
+        }
+
+        .navbar-title {
+            float: left;
+            padding: 14px 0;
+
+            .section-title {
+
+                > li {
+                    visibility: hidden;
+                    height: 0;
+
+                    &.active {
+                        visibility: visible;
+                        height: auto;
+
+                        > a {
+                            padding: 5px 0 0 0;
+                        }
+                    }
+
+                    > a {
+                        padding: 20px 0 0 0;
+                        .transition(padding .7s ease-in-out);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.resume-section-background(@color, @img) {
+    width: 100%;
+    background-image: linear-gradient( @color, @color ), url(@img);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    .cover();
+}
+
+.resume-header {
+    height: 100%;
+    display: table;
+    .resume-section-background(@header-color, "images/header-xs.jpg");
+
+    @media(min-width: @grid-float-breakpoint) {
+        .resume-section-background(@header-color, "images/header-md.jpg");
+    }
+
+    .resume-header-body {
+        display: table-cell;
+        vertical-align: middle;
+
+        .contact-details {
+            list-style: none;
+
+            > li {
+                > .contact-detail {
+                    margin: 0 5px;
+                }
+            }
+        }
+
+        .line {
+            margin: 25px auto 30px;
+            padding: 0;
+            max-width: 400px;
+        }
+
+        .btn-rounded {
+            margin-top: 30px;
+        }
+    }
+}
+
+.resume-education {
+    .resume-section-background(@education-color, "images/education-xs.jpg");
+
+    @media(min-width: @grid-float-breakpoint) {
+        .resume-section-background(@education-color, "images/education-md.jpg");
+    }
+}
+
+.resume-experience {
+    .resume-section-background(@experience-color, "images/experience-xs.jpg");
+
+    @media(min-width: @grid-float-breakpoint) {
+        .resume-section-background(@experience-color, "images/experience-md.jpg");
+    }
+}
+
+.resume-side-projects {
+    .resume-section-background(@side-projects-color, "images/side-projects-xs.jpg");
+
+    @media(min-width: @grid-float-breakpoint) {
+        .resume-section-background(@side-projects-color, "images/side-projects-md.jpg");
+    }
+}
+
+.resume-skills {
+    .resume-section-background(@skills-color, "images/skills-xs.jpg");
+
+    @media(min-width: @grid-float-breakpoint) {
+        .resume-section-background(@skills-color, "images/skills-md.jpg");
+    }
+}
+
+.resume-languages {
+    .resume-section-background(@languages-color, "images/languages-xs.jpg");
+
+    @media(min-width: @grid-float-breakpoint) {
+        .resume-section-background(@languages-color, "images/languages-md.jpg");
+    }
+}
+
+.resume-certifications {
+    .resume-section-background(@certifications-color, "images/certifications-xs.jpg");
+
+    @media(min-width: @grid-float-breakpoint) {
+        .resume-section-background(@certifications-color, "images/certifications-md.jpg");
+    }
+}
+
+.resume-footer {
+    padding-top: 150px;
+    padding-bottom: 150px;
+    .resume-section-background(@footer-color, "images/footer-xs.jpg");
+
+    @media(min-width: @grid-float-breakpoint) {
+        .resume-section-background(@footer-color, "images/footer-md.jpg");
+    }
+}
+
+.btn-rounded {
+    width: 60px;
+    height: 60px;
+    padding: 7px 12px;
+    border: 1px solid @text-color;
+    border-radius: 33% !important;
+    font-size: @font-size-h1;
+    background-color: transparent;
+    .transition(background .5s ease-in-out);
+
+    &:hover,
+    &:focus {
+        outline: none;
+        color: @text-color;
+        background-color: fade(@text-color, 10%);
+    }
+}
+
+.check-list {
+    margin: 20px;
+
+    > li {
+        padding-left: 40px;
+        line-height: 1.5em;
+
+        &:before {
+            content: @fa-var-check;
+            font-family: FontAwesome;
+            display: inline-block;
+            width: 40px;
+            margin-left: -40px;
+        }
+    }
+
+    > .check-list-user {
+        margin-bottom: 15px;
+
+        &:before {
+            content: @fa-var-user;
+        }
+    }
+
+    > .check-list-gear {
+        margin-top: 15px;
+
+        &:before {
+            content: @fa-var-gear;
+        }
+    }
+}
