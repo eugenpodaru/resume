@@ -98,7 +98,7 @@ IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
 call :SelectNodeVersion
 
 :: 3. Install npm packages, bower, grunt, and bower packages
-pushd "%DEPLOYMENT_TARGET%"
+pushd "%DEPLOYMENT_TARGET%\Resume"
 
 echo Installing npm packages...
 call :ExecuteCmd !NPM_CMD! install
