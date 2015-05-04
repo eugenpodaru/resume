@@ -99,6 +99,7 @@ call :SelectNodeVersion
 
 :: 3. Install npm packages
 IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
+  echo Installing npm packages...
   pushd "%DEPLOYMENT_TARGET%"
   call :ExecuteCmd !NPM_CMD! install
   IF !ERRORLEVEL! NEQ 0 goto error
@@ -107,6 +108,7 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
 
 :: 4. Install grunt-cli
 IF EXIST "%DEPLOYMENT_TARGET%\Gruntfile.js" (
+  echo Installing grunt-cli...
   pushd "%DEPLOYMENT_TARGET%"
   call :ExecuteCmd !NPM_CMD! install grunt-cli -g
   IF !ERRORLEVEL! NEQ 0 goto error
@@ -116,10 +118,10 @@ IF EXIST "%DEPLOYMENT_TARGET%\Gruntfile.js" (
 :: 5. Install bower and bower packages
 IF EXIST "%DEPLOYMENT_TARGET%\bower.json" (
   pushd "%DEPLOYMENT_TARGET%"
-  :: install bower
+  echo Installing bower...
   call :ExecuteCmd !NPM_CMD! install bower -g
   IF !ERRORLEVEL! NEQ 0 goto error
-  :: run bower-install grunt task
+  echo Running bower-install grunt task...
   call :ExecuteCmd grunt bower-install
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
