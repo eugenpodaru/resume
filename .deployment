@@ -1,3 +1,2 @@
 [config]
-project = Resume/Resume.csproj
 command = deploy.cmd
