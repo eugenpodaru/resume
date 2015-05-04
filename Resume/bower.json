@@ -1,23 +1,29 @@
 {
-  "name": "Resume",
-  "version": "(0.0.1-alpha)",
-  "authors": [
-    "Eugen Podaru <eugen.podaru@live.com>"
-  ],
-  "description": "Eugen Podaru's Resume",
-  "license": "",
-  "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "jquery": "~2.1.3",
-    "bootstrap": "~3.3.4",
-    "jquery-easing": "*",
-    "font-awsome": "*"
-  }
+    "name": "Resume",
+    "version": "(0.1.2)",
+    "author": {
+        "name": "Eugen Podaru",
+        "email": "eugen.podaru@live.com"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://opensource.org/licenses/MIT"
+        }
+    ],
+    "description": "Eugen Podaru's Resume",
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "jquery": "~2.1.3",
+        "bootstrap": "~3.3.4",
+        "jquery-easing": "*",
+        "font-awsome": "~4.3.0"
+    }
 }
