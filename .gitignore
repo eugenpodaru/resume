@@ -109,6 +109,9 @@ publish/
 ## TODO: If you have NuGet Package Restore enabled, uncomment the next line
 packages/
 
+# NodeJS Components Directory
+node_modules/
+
 # Bower libraries
 [Ll]ib/
 
