@@ -226,9 +226,6 @@
     <Content Include="Content\Styles\fonts.css">
       <DependentUpon>fonts.less</DependentUpon>
     </Content>
-    <Content Include="Content\Styles\fonts.min.css">
-      <DependentUpon>fonts.css</DependentUpon>
-    </Content>
     <Content Include="Content\Styles\images\certifications-md.jpg" />
     <Content Include="Content\Styles\images\certifications-xs.jpg" />
     <Content Include="Content\Styles\images\certifications.jpg" />
@@ -257,9 +254,6 @@
     <Content Include="Content\Styles\images\skills.jpg" />
     <Content Include="Content\Styles\theme.css">
       <DependentUpon>theme.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Styles\theme.min.css">
-      <DependentUpon>theme.css</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
     <Content Include="Gruntfile.js" />
@@ -423,12 +417,6 @@
     <Content Include="Content\lib\font-awsome\scss\_rotated-flipped.scss" />
     <Content Include="Content\lib\font-awsome\scss\_stacked.scss" />
     <Content Include="Content\lib\font-awsome\scss\_variables.scss" />
-    <Content Include="Content\Styles\fonts.css.map">
-      <DependentUpon>fonts.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Styles\theme.css.map">
-      <DependentUpon>theme.css</DependentUpon>
-    </Content>
     <Content Include="package.json" />
     <None Include="Properties\PublishProfiles\eugenpodaru.pubxml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
