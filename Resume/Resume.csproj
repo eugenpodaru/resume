@@ -422,6 +422,12 @@
     <Content Include="Content\lib\font-awsome\scss\_rotated-flipped.scss" />
     <Content Include="Content\lib\font-awsome\scss\_stacked.scss" />
     <Content Include="Content\lib\font-awsome\scss\_variables.scss" />
+    <Content Include="Content\Styles\fonts.css.map">
+      <DependentUpon>fonts.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Styles\theme.css.map">
+      <DependentUpon>theme.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\eugenpodaru.pubxml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
