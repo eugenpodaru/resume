@@ -82,8 +82,8 @@ if(Test-Path Env:\SCM_BUILD_ARGS){
     $ScmBuildArgs = $env:SCM_BUILD_ARGS;
 }
 
-$PostDeploymentSource = "$DeploymentSource\Scripts\PostDeploymentActions";
-$PostDeploymentTarget = "$DeploymentSource\..\deployments\tools\PostDeploymentActions";
+$PostDeploymentSource = ".\Scripts\PostDeploymentActions";
+$PostDeploymentTarget = "..\deployments\tools\PostDeploymentActions";
 
 CreateDirectory $PostDeploymentTarget;
 
