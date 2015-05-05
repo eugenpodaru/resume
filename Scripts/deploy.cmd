@@ -62,17 +62,19 @@ IF NOT DEFINED MSBUILD_PATH (
 )
 
 IF NOT DEFINED POST_DEPLOYMENT_SOURCE (
-  SET POST_DEPLOYMENT_SOURCE=%DEPLOYMENT_SOURCE%\Scripts\PostDeploymentActions\
+  SET POST_DEPLOYMENT_SOURCE=.\Scripts\PostDeploymentActions\
 )
 
 IF NOT DEFINED POST_DEPLOYMENT_TARGET (
-  SET POST_DEPLOYMENT_TARGET=%DEPLOYMENT_SOURCE%\..\deployments\tools\PostDeploymentActions\
+  SET POST_DEPLOYMENT_TARGET=..\deployments\tools\PostDeploymentActions\
   SET CLEAN_POST_DEPLOYMENT_TARGET=true
 )
 
 IF DEFINED CLEAN_POST_DEPLOYMENT_TARGET (
+  pushd "%DEPLOYMENT_SOURCE%"
   IF EXIST "%POST_DEPLOYMENT_TARGET%" rd /s /q "%POST_DEPLOYMENT_TARGET%"
   mkdir "%POST_DEPLOYMENT_TARGET%"
+  popd
 )
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -130,9 +132,11 @@ IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
 
 :: 5. Copy the post deployment scripts
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
+  pushd "%DEPLOYMENT_SOURCE%"
   echo Copy the post deployment scripts...
   call :ExecuteCmd xcopy %POST_DEPLOYMENT_SOURCE% %POST_DEPLOYMENT_TARGET% /Y
   IF !ERRORLEVEL! NEQ 0 goto error
+  popd
 )
 
 goto end
