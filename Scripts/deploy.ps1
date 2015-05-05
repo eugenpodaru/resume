@@ -65,12 +65,8 @@ if(Test-Path Env:\KUDU_SYNC_CMD){
     CheckLastExitCode "Could not install KuduSync";
 }
 
-$DeploymentTemp = "$env:TEMP\__deployTemp" + (Get-Random);
-if(Test-Path Env:\DEPLOYMENT_TEMP){
-    $DeploymentTemp = $env:DEPLOYMENT_TEMP;
-} else {
-    CreateDirectory $DeploymentTemp;
-}
+$DeploymentTemp = "$DeploymentSource\Output";
+CreateDirectory $DeploymentTemp;
 
 $MSBuildPath = "$env:windir\Microsoft.NET\Framework\v4.0.30319\msbuild.exe";
 if(Test-Path Env:\MSBUILD_PATH){
