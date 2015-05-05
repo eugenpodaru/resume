@@ -1,3 +1,5 @@
+@if "%SCM_TRACE_LEVEL%" NEQ "4" @echo off
+
 IF NOT DEFINED DEPLOYMENT_SOURCE (
   SET DEPLOYMENT_SOURCE=%~dp0%.
 )
@@ -9,9 +11,6 @@ goto end
 
 :error
 echo An error has occurred during web site deployment.
-call :exitSetErrorLevel
-
-:exitSetErrorLevel
 exit /b 1
 
 :end
