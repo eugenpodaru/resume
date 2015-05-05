@@ -19,10 +19,8 @@ function CheckLastExitCode($msg){
 function CreateDirectory($dir){
     if(Test-Path -Path $dir){
         Remove-Item -Recurse -Force -Path $dir | Out-Null;
-        CheckLastExitCode "Could not remove directory $dir";
     }
     New-Item -Force -ItemType directory -Path $dir  | Out-Null;
-    CheckLastExitCode "Could not create directory $dir";
 }
 
 # Prerequisites
@@ -65,8 +63,12 @@ if(Test-Path Env:\KUDU_SYNC_CMD){
     CheckLastExitCode "Could not install KuduSync";
 }
 
-$DeploymentTemp = "$DeploymentSource\Output";
-CreateDirectory $DeploymentTemp;
+$DeploymentTemp = "$env:TEMP\__deployTemp" + (Get-Random);
+if(Test-Path Env:\DEPLOYMENT_TEMP){
+    $DeploymentTemp = $env:DEPLOYMENT_TEMP;
+} else {
+    CreateDirectory $DeploymentTemp;
+}
 
 $MSBuildPath = "$env:windir\Microsoft.NET\Framework\v4.0.30319\msbuild.exe";
 if(Test-Path Env:\MSBUILD_PATH){
@@ -78,8 +80,8 @@ if(Test-Path Env:\SCM_BUILD_ARGS){
     $ScmBuildArgs = $env:SCM_BUILD_ARGS;
 }
 
-$PostDeploymentSource = ".\Scripts\PostDeploymentActions";
-$PostDeploymentTarget = "..\deployments\tools\PostDeploymentActions";
+$PostDeploymentSource = "$DeploymentSource\Scripts\PostDeploymentActions";
+$PostDeploymentTarget = "$DeploymentSource\..\deployments\tools\PostDeploymentActions";
 
 CreateDirectory $PostDeploymentTarget;
 
