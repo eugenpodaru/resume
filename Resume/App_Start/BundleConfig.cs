@@ -23,7 +23,7 @@
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
             BundleTable.EnableOptimizations = false;
 #else
-            BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = false;
 #endif
         }
     }
