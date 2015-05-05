@@ -66,7 +66,13 @@ IF NOT DEFINED POST_DEPLOYMENT_SOURCE (
 )
 
 IF NOT DEFINED POST_DEPLOYMENT_TARGET (
-  SET POST_DEPLOYMENT_TARGET=%ARTIFACTS%\deployments\tools\PostDeploymentActions\
+  SET POST_DEPLOYMENT_TARGET=%DEPLOYMENT_SOURCE%..\deployments\tools\PostDeploymentActions\
+  SET CLEAN_POST_DEPLOYMENT_TARGET=true
+)
+
+IF DEFINED CLEAN_POST_DEPLOYMENT_TARGET (
+  IF EXIST "%POST_DEPLOYMENT_TARGET%" rd /s /q "%POST_DEPLOYMENT_TARGET%"
+  mkdir "%POST_DEPLOYMENT_TARGET%"
 )
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -126,6 +132,7 @@ IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
 	echo Copy the post deployment scripts...
 	call :ExecuteCmd xcopy %POST_DEPLOYMENT_SOURCE% %POST_DEPLOYMENT_TARGET% /Y
+	IF !ERRORLEVEL! NEQ 0 goto error
 )
 
 goto end
