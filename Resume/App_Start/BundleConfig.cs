@@ -16,7 +16,6 @@
             //style sheet bundles
 
             bundles.Add(new StyleBundle("~/Content/Styles/css")
-                .Include("~/Content/lib/font-awesome/css/font-awesome.min.css")
                 .Include("~/Content/Styles/theme.min.css"));
 
 #if DEBUG
