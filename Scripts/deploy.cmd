@@ -61,6 +61,14 @@ IF NOT DEFINED MSBUILD_PATH (
   SET MSBUILD_PATH=%WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild.exe
 )
 
+IF NOT DEFINED POST_DEPLOYMENT_SOURCE (
+  SET POST_DEPLOYMENT_SOURCE=%DEPLOYMENT_SOURCE%\Scripts\PostDeploymentActions\
+)
+
+IF NOT DEFINED POST_DEPLOYMENT_TARGET (
+  SET POST_DEPLOYMENT_TARGET=%ARTIFACTS%\deployments\tools\PostDeploymentActions\
+)
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :: Deployment
 :: ----------
@@ -81,7 +89,7 @@ IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
 	call :ExecuteCmd npm install
 	IF !ERRORLEVEL! NEQ 0 goto error
 	
-	echo Running npm dedupe
+	echo Running npm dedupe...
 	call :ExecuteCmd npm dedupe
 	IF !ERRORLEVEL! NEQ 0 goto error
 
@@ -114,11 +122,11 @@ IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
   IF !ERRORLEVEL! NEQ 0 goto error
 )
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:: Post deployment stub
-IF DEFINED POST_DEPLOYMENT_ACTION call "%POST_DEPLOYMENT_ACTION%"
-IF !ERRORLEVEL! NEQ 0 goto error
+:: 5. Copy the post deployment scripts
+IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
+	echo Copy the post deployment scripts...
+	call :ExecuteCmd xcopy %POST_DEPLOYMENT_SOURCE% %POST_DEPLOYMENT_TARGET% /Y
+)
 
 goto end
 
