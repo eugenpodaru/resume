@@ -70,6 +70,9 @@ if(Test-Path Env:\DEPLOYMENT_TEMP){
     CreateDirectory $DeploymentTemp;
 }
 
+$PostDeploymentTemp = "$env:TEMP\__postDeployTemp" + (Get-Random);
+CreateDirectory $PostDeploymentTemp;
+
 $MSBuildPath = "$env:windir\Microsoft.NET\Framework\v4.0.30319\msbuild.exe";
 if(Test-Path Env:\MSBUILD_PATH){
     $MSBuildPath = $env:MSBUILD_PATH;
@@ -80,10 +83,20 @@ if(Test-Path Env:\SCM_BUILD_ARGS){
     $ScmBuildArgs = $env:SCM_BUILD_ARGS;
 }
 
-$PostDeploymentSource = "$DeploymentSource\Scripts\PostDeploymentActions";
-$PostDeploymentTarget = "$DeploymentSource\..\deployments\tools\PostDeploymentActions";
+$GitHubUsername = "";
+if(Test-Path Env:\GITHUB_USERNAME){
+    $GitHubUsername = $env:GITHUB_USERNAME;
+}
 
-CreateDirectory $PostDeploymentTarget;
+$GitHubEmail = "";
+if(Test-Path Env:\GITHUB_EMAIL){
+    $GitHubEmail = $env:GITHUB_EMAIL;
+}
+
+$GitHubAccessToken = "";
+if(Test-Path Env:\GITHUB_ACCESS_TOKEN){
+    $GitHubAccessToken = $env:GITHUB_ACCESS_TOKEN;
+}
 
 # Deployment
 # -------------
@@ -128,18 +141,33 @@ Write-Output "KuduSync";
 &$KuduSyncCmd -v 50 -f "$DeploymentTemp" -t "$DeploymentTarget" -n "$NextManifestPath" -p "$PreviousManifestPath" -i ".git;.hg;.deployment;deploy.cmd";
 CheckLastExitCode "KuduSync failed";
 
-# 5. Copy the post deployment scripts
-Push-Location "$DeploymentSource";
-Write-Output "Copy the post deployment scripts...";
-& xcopy /I "$PostDeploymentSource" "$PostDeploymentTarget";
-CheckLastExitCode "Copying the post deployment scripts failed";
+# PostDeployment
+# -------------
+
+# 5. Download the wget client
+Push-Location "$DeploymentSource\Resume";
+Write-Output "Running wget grunt task...";
+& grunt wget;
+CheckLastExitCode "Running wget grunt task failed";
 Pop-Location;
 
-# Post deployment stub
-if(Test-Path Env:\POST_DEPLOYMENT_ACTION){
-    Write-Output "Running the post deployment scripts...";
-    &$env:POST_DEPLOYMENT_ACTION;
-    CheckLastExitCode "Running the post deployment scripts failed";
-}
+# 6. Clone the repository from GitHub
+Push-Location "$PostDeploymentTemp";
+Write-Output "Clonning the repository from GitHub...";
+CreateDirectory "$GitHubUsername";
+& git clone --branch=master https://${GitHubUsername}:$GitHubAccessToken@github.com/$GitHubUsername/$GitHubUsername.github.io.git .\$GitHubUsername\;
+CheckLastExitCode "Clonning the repository from GitHub failed.";
+Pop-Location;
+
+# 7. Set git settings
+Push-Location "$PostDeploymentTemp\$GitHubUsername";
+Write-Output "Setting git settings...";
+& git config user.email $GitHubEmail;
+CheckLastExitCode "Setting the email failed.";
+& git config user.name $GitHubUsername;
+CheckLastExitCode "Setting the username failed.";
+& git config push.default matching;
+CheckLastExitCode "Setting push.default failed.";
+Pop-Location;
 
 Write-Output "Finished successfully.";
