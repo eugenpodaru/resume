@@ -66,7 +66,7 @@ IF NOT DEFINED POST_DEPLOYMENT_SOURCE (
 )
 
 IF NOT DEFINED POST_DEPLOYMENT_TARGET (
-  SET POST_DEPLOYMENT_TARGET=%DEPLOYMENT_SOURCE%..\deployments\tools\PostDeploymentActions\
+  SET POST_DEPLOYMENT_TARGET=%DEPLOYMENT_SOURCE%\..\deployments\tools\PostDeploymentActions\
   SET CLEAN_POST_DEPLOYMENT_TARGET=true
 )
 
@@ -89,28 +89,28 @@ IF /I "Resume.sln" NEQ "" (
 
 :: 2. Install npm packages, bower, grunt, and bower packages
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
-	pushd "%DEPLOYMENT_SOURCE%\Resume"
+  pushd "%DEPLOYMENT_SOURCE%\Resume"
 
-	echo Installing npm packages...
-	call :ExecuteCmd npm install
-	IF !ERRORLEVEL! NEQ 0 goto error
-	
-	echo Running npm dedupe...
-	call :ExecuteCmd npm dedupe
-	IF !ERRORLEVEL! NEQ 0 goto error
+  echo Installing npm packages...
+  call :ExecuteCmd npm install
+  IF !ERRORLEVEL! NEQ 0 goto error
 
-	echo Installing grunt-cli...
-	call :ExecuteCmd npm install grunt-cli -g
-	IF !ERRORLEVEL! NEQ 0 goto error
-	  
-	echo Installing bower...
-	call :ExecuteCmd npm install bower -g
-	IF !ERRORLEVEL! NEQ 0 goto error
+  echo Running npm dedupe...
+  call :ExecuteCmd npm dedupe
+  IF !ERRORLEVEL! NEQ 0 goto error
 
-	echo Running bower-install grunt task...
-	call :ExecuteCmd grunt bower-install
-	IF !ERRORLEVEL! NEQ 0 goto error
-	popd
+  echo Installing grunt-cli...
+  call :ExecuteCmd npm install grunt-cli -g
+  IF !ERRORLEVEL! NEQ 0 goto error
+  
+  echo Installing bower...
+  call :ExecuteCmd npm install bower -g
+  IF !ERRORLEVEL! NEQ 0 goto error
+
+  echo Running bower-install grunt task...
+  call :ExecuteCmd grunt bower-install
+  IF !ERRORLEVEL! NEQ 0 goto error
+  popd
 )
 
 :: 3. Build to the temporary path
@@ -130,9 +130,9 @@ IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
 
 :: 5. Copy the post deployment scripts
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
-	echo Copy the post deployment scripts...
-	call :ExecuteCmd xcopy %POST_DEPLOYMENT_SOURCE% %POST_DEPLOYMENT_TARGET% /Y
-	IF !ERRORLEVEL! NEQ 0 goto error
+  echo Copy the post deployment scripts...
+  call :ExecuteCmd xcopy %POST_DEPLOYMENT_SOURCE% %POST_DEPLOYMENT_TARGET% /Y
+  IF !ERRORLEVEL! NEQ 0 goto error
 )
 
 goto end
