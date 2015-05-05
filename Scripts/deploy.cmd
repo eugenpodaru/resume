@@ -139,6 +139,12 @@ IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
   popd
 )
 
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:: Post deployment stub
+IF DEFINED POST_DEPLOYMENT_ACTION call "%POST_DEPLOYMENT_ACTION%"
+IF !ERRORLEVEL! NEQ 0 goto error
+
 goto end
 
 :: Execute command routine that will echo out when error
