@@ -53,18 +53,32 @@ IF DEFINED CLEAN_LOCAL_DEPLOYMENT_TEMP (
 :: Deployment
 :: ----------
 
+:: Download the wget client
+pushd "%DEPLOYMENT_SOURCE%\Resume"
+
+echo Running wget grunt task...
+call :ExecuteCmd grunt wget
+IF !ERRORLEVEL! NEQ 0 goto error
+
+popd
+
 :: Clone the repository from GitHub
 pushd "%DEPLOYMENT_TEMP%"
 
 call :ExecuteCmd mkdir "%GITHUB_USERNAME%"
+IF !ERRORLEVEL! NEQ 0 goto error
 call :ExecuteCmd git clone --quiet --branch=master https://%GITHUB_USERNAME%:%GITHUB_ACCESS_TOKEN%@github.com/%GITHUB_USERNAME%/%GITHUB_USERNAME%.github.io.git .\%GITHUB_USERNAME%\
+IF !ERRORLEVEL! NEQ 0 goto error
   
 pushd "%GITHUB_USERNAME%"
 
 :: Set git settings
 call :ExecuteCmd git config user.email %GITHUB_EMAIL%
+IF !ERRORLEVEL! NEQ 0 goto error
 call :ExecuteCmd git config user.name %GITHUB_USERNAME%
+IF !ERRORLEVEL! NEQ 0 goto error
 call :ExecuteCmd git config push.default matching
+IF !ERRORLEVEL! NEQ 0 goto error
 
 popd
 popd
