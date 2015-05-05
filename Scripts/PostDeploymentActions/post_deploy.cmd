@@ -53,15 +53,20 @@ IF DEFINED CLEAN_LOCAL_DEPLOYMENT_TEMP (
 :: Deployment
 :: ----------
 
-:: Set git settings
-call :ExecuteCmd git config --global user.email %GITHUB_EMAIL%
-call :ExecuteCmd git config --global user.name %GITHUB_USERNAME%
-call :ExecuteCmd git config --global push.default matching
-
 :: Clone the repository from GitHub
 pushd "%DEPLOYMENT_TEMP%"
-  call :ExecuteCmd mkdir "%GITHUB_USERNAME%"
-  call :ExecuteCmd git clone --quiet --branch=master https://%GITHUB_USERNAME%:%GITHUB_ACCESS_TOKEN%@github.com/%GITHUB_USERNAME%/%GITHUB_USERNAME%.github.io.git .\%GITHUB_USERNAME%\
+
+call :ExecuteCmd mkdir "%GITHUB_USERNAME%"
+call :ExecuteCmd git clone --quiet --branch=master https://%GITHUB_USERNAME%:%GITHUB_ACCESS_TOKEN%@github.com/%GITHUB_USERNAME%/%GITHUB_USERNAME%.github.io.git .\%GITHUB_USERNAME%\
+  
+pushd "%GITHUB_USERNAME%"
+
+:: Set git settings
+call :ExecuteCmd git config user.email %GITHUB_EMAIL%
+call :ExecuteCmd git config user.name %GITHUB_USERNAME%
+call :ExecuteCmd git config push.default matching
+
+popd
 popd
 
 goto end
