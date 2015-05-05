@@ -8,15 +8,16 @@
         {
             // javascript bundles
             bundles.Add(new ScriptBundle("~/bundles/js")
-                .Include("~/Content/lib/jquery/dist/jquery.js")
-                .Include("~/Content/lib/jquery-easing/jquery.easing.js")
-                .Include("~/Content/lib/bootstrap/dist/js/bootstrap.js")
-                .Include("~/Content/Scripts/resume.js"));
+                .Include("~/Content/lib/jquery/dist/jquery.min.js")
+                .Include("~/Content/lib/jquery-easing/jquery.easing.min.js")
+                .Include("~/Content/lib/bootstrap/dist/js/bootstrap.min.js")
+                .Include("~/Content/Scripts/resume.min.js"));
 
             //style sheet bundles
 
             bundles.Add(new StyleBundle("~/Content/Styles/css")
-                .Include("~/Content/Styles/theme.css"));
+                .Include("~/Content/lib/font-awesome/css/font-awesome.min.css")
+                .Include("~/Content/Styles/theme.min.css"));
 
 #if DEBUG
             // Set EnableOptimizations to false for debugging. For more information,
