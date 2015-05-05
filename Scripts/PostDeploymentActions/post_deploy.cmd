@@ -53,7 +53,7 @@ IF DEFINED CLEAN_LOCAL_DEPLOYMENT_TEMP (
 :: Deployment
 :: ----------
 
-echo Post deployment action deployment.
+mkdir "%DEPLOYMENT_SOURCE%\test"
 
 goto end
 
