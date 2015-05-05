@@ -120,7 +120,7 @@ Pop-Location;
 
 # 3. Build to the temporary path
 Write-Output "Build the solution";
-&$MSBuildPath "$DeploymentSource\Resume\Resume.csproj" /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="$DeploymentTemp";AutoParameterizationWebConfigConnectionStrings=false;Configuration=Release /p:SolutionDir="$DeploymentSource\.\\" $ScmBuildArgs;
+&$MSBuildPath "$DeploymentSource\Resume\Resume.csproj" /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="$DeploymentTemp" /p:AutoParameterizationWebConfigConnectionStrings=false /p:Configuration=Release /p:SolutionDir="$DeploymentSource\.\\" $ScmBuildArgs;
 CheckLastExitCode "Build failed.";
 
 # 4. KuduSync
