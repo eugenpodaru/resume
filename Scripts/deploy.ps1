@@ -3,8 +3,8 @@
 
 # Write an error message and exit with a code
 function Error($msg){
-    Write-Error "An error has occurred during web site deployment.";
-    Write-Error $msg;
+    Write-Output "An error has occurred during web site deployment.";
+    Write-Output $msg;
     Exit 1;
 }
 
