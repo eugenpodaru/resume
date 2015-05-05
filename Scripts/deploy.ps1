@@ -3,7 +3,7 @@
 
 # Write an error message and exit with a code
 function Error(){
-    Write-Host "An error has occurred during web site deployment.";
+    Write-Output "An error has occurred during web site deployment.";
     Exit 1;
 }
 
@@ -29,7 +29,7 @@ function CreateDirectory($dir){
 
 # Verify node.js installed
 if(-NOT [bool](Get-Command -Name "node" -ErrorAction SilentlyContinue)){
-    Write-Host "Missing node.js executable, please install node.js, if already installed make sure it can be reached from current environment.";
+    Write-Output "Missing node.js executable, please install node.js, if already installed make sure it can be reached from current environment.";
     Error;
 }
 
@@ -60,7 +60,7 @@ $KuduSyncCmd = "$env:APPDATA\npm\kuduSync.cmd";
 if(Test-Path Env:\KUDU_SYNC_CMD){
     $KuduSyncCmd = $env:KUDU_SYNC_CMD;
 } else {
-    Write-Host "Installing Kudu Sync";
+    Write-Output "Installing Kudu Sync";
     & npm install kudusync -g --silent;
     CheckLastExitCode;
 }
@@ -91,57 +91,57 @@ CreateDirectory $PostDeploymentTarget;
 # -------------
 
 # 1. Restore NuGet packages
-Write-Host "Restoring NuGet packages...";
+Write-Output "Restoring NuGet packages...";
 & nuget restore "$DeploymentSource\Resume.sln";
 CheckLastExitCode;
 
 # 2. Install npm packages, bower, grunt, and bower packages
 Push-Location "$DeploymentSource\Resume";
 
-Write-Host "Installing npm packages...";
+Write-Output "Installing npm packages...";
 & npm install;
 CheckLastExitCode;
 
-Write-Host "Running npm dedupe...";
+Write-Output "Running npm dedupe...";
 & npm dedupe;
 CheckLastExitCode;
 
-Write-Host "Installing grunt-cli...";
+Write-Output "Installing grunt-cli...";
 & npm install grunt-cli -g;
 CheckLastExitCode;
 
-Write-Host "Installing bower...";
+Write-Output "Installing bower...";
 & npm install bower -g;
 CheckLastExitCode;
 
-Write-Host "Running bower-install grunt task...";
+Write-Output "Running bower-install grunt task...";
 & grunt bower-install;
 CheckLastExitCode;
 
 Pop-Location;
 
 # 3. Build to the temporary path
-Write-Host "Build the solution";
+Write-Output "Build the solution";
 &$MSBuildPath "$DeploymentSource\Resume\Resume.csproj" /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="$DeploymentTemp";AutoParameterizationWebConfigConnectionStrings=false;Configuration=Release /p:SolutionDir="$DeploymentSource\.\\" $ScmBuildArgs;
 CheckLastExitCode;
 
 # 4. KuduSync
-Write-Host "KuduSync";
+Write-Output "KuduSync";
 &$KuduSyncCmd -v 50 -f "$DeploymentTemp" -t "$DeploymentTarget" -n "$NextManifestPath" -p "$PreviousManifestPath" -i ".git;.hg;.deployment;deploy.cmd";
 CheckLastExitCode;
 
 # 5. Copy the post deployment scripts
 Push-Location "$DeploymentSource";
-Write-Host "Copy the post deployment scripts...";
+Write-Output "Copy the post deployment scripts...";
 & xcopy /I "$PostDeploymentSource" "$PostDeploymentTarget";
 CheckLastExitCode;
 Pop-Location;
 
 # Post deployment stub
 if(Test-Path Env:\POST_DEPLOYMENT_ACTION){
-    Write-Host "Running the post deployment scripts...";
+    Write-Output "Running the post deployment scripts...";
     &$env:POST_DEPLOYMENT_ACTION;
     CheckLastExitCode;
 }
 
-Write-Host "Finished successfully.";
+Write-Output "Finished successfully.";

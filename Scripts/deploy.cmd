@@ -1,8 +1,10 @@
+setlocal enabledelayedexpansion
+
 IF NOT DEFINED DEPLOYMENT_SOURCE (
   SET DEPLOYMENT_SOURCE=%~dp0%.
 )
 
-powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden -File "%DEPLOYMENT_SOURCE%\Scripts\deploy.ps1"
+call powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden -File "%DEPLOYMENT_SOURCE%\Scripts\deploy.ps1"
 IF !ERRORLEVEL! NEQ 0 goto error
 
 goto end
