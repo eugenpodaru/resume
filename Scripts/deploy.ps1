@@ -151,7 +151,15 @@ Write-Output "Running wget grunt task...";
 CheckLastExitCode "Running wget grunt task failed";
 Pop-Location;
 
-# 6. Clone the repository from GitHub
+# 6. Mirror the site using wget
+Push-Location "$PostDeploymentTemp";
+Write-Output "Mirroring the site using wget...";
+& "$DeploymentSource\Resume\bin\wget.exe" --recursive --no-check-certificate --directory-prefix="static-site" ${GitHubUsername}.azurewebsites.net -o wget.log;
+CheckLastExitCode "Mirroring the site using wget failed";
+& cat wget.log;
+Pop-Location;
+
+# 7. Clone the repository from GitHub
 Push-Location "$PostDeploymentTemp";
 Write-Output "Clonning the repository from GitHub...";
 CreateDirectory "$GitHubUsername";
@@ -162,12 +170,7 @@ Push-Location "$GitHubUsername";
 Pop-Location;
 Pop-Location;
 
-# 6. Empty the contents of the git repository
-Push-Location "$PostDeploymentTemp\$GitHubUsername";
-Write-Output "Cleaning the git repository...";
-Get-ChildItem -Attributes !r | Remove-Item -Recurse -Force;
-
-# 7. Set git settings
+# 8. Set git settings
 Push-Location "$PostDeploymentTemp\$GitHubUsername";
 Write-Output "Setting git settings...";
 & git config user.email $GitHubEmail;
@@ -176,6 +179,17 @@ CheckLastExitCode "Setting the email failed.";
 CheckLastExitCode "Setting the username failed.";
 & git config push.default matching;
 CheckLastExitCode "Setting push.default failed.";
+Pop-Location;
+
+# 9. Empty the contents of the git repository
+Push-Location "$PostDeploymentTemp\$GitHubUsername";
+Write-Output "Cleaning the git repository...";
+Get-ChildItem -Attributes !r | Remove-Item -Recurse -Force;
+Pop-Location;
+
+# 10. Copy the contents of the static site to the repository
+Push-Location "$PostDeploymentTemp";
+Copy-Item -path "static-site\*" -Destination "$GitHubUsername" -Recurse -Force;
 Pop-Location;
 
 Write-Output "Finished successfully.";
