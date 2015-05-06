@@ -436,7 +436,6 @@
     <Content Include="Content\Scripts\resume.min.js.map">
       <DependentUpon>resume.min.js</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\eugenpodaru.pubxml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Education.cshtml" />
