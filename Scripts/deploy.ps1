@@ -154,9 +154,8 @@ Pop-Location;
 # 6. Mirror the site using wget
 Push-Location "$PostDeploymentTemp";
 Write-Output "Mirroring the site using wget...";
-& "$DeploymentSource\Resume\bin\wget.exe" --recursive --no-check-certificate --directory-prefix=static-site https://${GitHubUsername}.azurewebsites.net -o wget.log;
+& "$DeploymentSource\Resume\bin\wget.exe" --recursive --no-check-certificate --directory-prefix=static-site https://${GitHubUsername}.azurewebsites.net;
 CheckLastExitCode "Mirroring the site using wget failed";
-& cat wget.log;
 Pop-Location;
 
 # 7. Clone the repository from GitHub
