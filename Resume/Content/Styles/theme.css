@@ -5341,6 +5341,8 @@ ul {
   height: 100%;
   display: table;
   width: 100%;
+  background-color: rgba(44, 62, 80, 0.65);
+  background-image: -webkit-linear-gradient(rgba(44, 62, 80, 0.65), rgba(44, 62, 80, 0.65)), url("images/header-xs.jpg");
   background-image: linear-gradient(rgba(44, 62, 80, 0.65), rgba(44, 62, 80, 0.65)), url("images/header-xs.jpg");
   background-position: center center;
   background-repeat: no-repeat;
@@ -5353,6 +5355,8 @@ ul {
 @media (min-width: 768px) {
   .resume-header {
     width: 100%;
+    background-color: rgba(44, 62, 80, 0.65);
+    background-image: -webkit-linear-gradient(rgba(44, 62, 80, 0.65), rgba(44, 62, 80, 0.65)), url("images/header-md.jpg");
     background-image: linear-gradient(rgba(44, 62, 80, 0.65), rgba(44, 62, 80, 0.65)), url("images/header-md.jpg");
     background-position: center center;
     background-repeat: no-repeat;
@@ -5383,6 +5387,8 @@ ul {
 }
 .resume-education {
   width: 100%;
+  background-color: rgba(29, 131, 193, 0.85);
+  background-image: -webkit-linear-gradient(rgba(29, 131, 193, 0.85), rgba(29, 131, 193, 0.85)), url("images/education-xs.jpg");
   background-image: linear-gradient(rgba(29, 131, 193, 0.85), rgba(29, 131, 193, 0.85)), url("images/education-xs.jpg");
   background-position: center center;
   background-repeat: no-repeat;
@@ -5395,6 +5401,8 @@ ul {
 @media (min-width: 768px) {
   .resume-education {
     width: 100%;
+    background-color: rgba(29, 131, 193, 0.85);
+    background-image: -webkit-linear-gradient(rgba(29, 131, 193, 0.85), rgba(29, 131, 193, 0.85)), url("images/education-md.jpg");
     background-image: linear-gradient(rgba(29, 131, 193, 0.85), rgba(29, 131, 193, 0.85)), url("images/education-md.jpg");
     background-position: center center;
     background-repeat: no-repeat;
@@ -5407,6 +5415,8 @@ ul {
 }
 .resume-experience {
   width: 100%;
+  background-color: rgba(154, 128, 163, 0.85);
+  background-image: -webkit-linear-gradient(rgba(154, 128, 163, 0.85), rgba(154, 128, 163, 0.85)), url("images/experience-xs.jpg");
   background-image: linear-gradient(rgba(154, 128, 163, 0.85), rgba(154, 128, 163, 0.85)), url("images/experience-xs.jpg");
   background-position: center center;
   background-repeat: no-repeat;
@@ -5419,6 +5429,8 @@ ul {
 @media (min-width: 768px) {
   .resume-experience {
     width: 100%;
+    background-color: rgba(154, 128, 163, 0.85);
+    background-image: -webkit-linear-gradient(rgba(154, 128, 163, 0.85), rgba(154, 128, 163, 0.85)), url("images/experience-md.jpg");
     background-image: linear-gradient(rgba(154, 128, 163, 0.85), rgba(154, 128, 163, 0.85)), url("images/experience-md.jpg");
     background-position: center center;
     background-repeat: no-repeat;
@@ -5431,6 +5443,8 @@ ul {
 }
 .resume-side-projects {
   width: 100%;
+  background-color: rgba(186, 76, 99, 0.65);
+  background-image: -webkit-linear-gradient(rgba(186, 76, 99, 0.65), rgba(186, 76, 99, 0.65)), url("images/side-projects-xs.jpg");
   background-image: linear-gradient(rgba(186, 76, 99, 0.65), rgba(186, 76, 99, 0.65)), url("images/side-projects-xs.jpg");
   background-position: center center;
   background-repeat: no-repeat;
@@ -5443,6 +5457,8 @@ ul {
 @media (min-width: 768px) {
   .resume-side-projects {
     width: 100%;
+    background-color: rgba(186, 76, 99, 0.65);
+    background-image: -webkit-linear-gradient(rgba(186, 76, 99, 0.65), rgba(186, 76, 99, 0.65)), url("images/side-projects-md.jpg");
     background-image: linear-gradient(rgba(186, 76, 99, 0.65), rgba(186, 76, 99, 0.65)), url("images/side-projects-md.jpg");
     background-position: center center;
     background-repeat: no-repeat;
@@ -5455,6 +5471,8 @@ ul {
 }
 .resume-skills {
   width: 100%;
+  background-color: rgba(189, 150, 74, 0.85);
+  background-image: -webkit-linear-gradient(rgba(189, 150, 74, 0.85), rgba(189, 150, 74, 0.85)), url("images/skills-xs.jpg");
   background-image: linear-gradient(rgba(189, 150, 74, 0.85), rgba(189, 150, 74, 0.85)), url("images/skills-xs.jpg");
   background-position: center center;
   background-repeat: no-repeat;
@@ -5467,6 +5485,8 @@ ul {
 @media (min-width: 768px) {
   .resume-skills {
     width: 100%;
+    background-color: rgba(189, 150, 74, 0.85);
+    background-image: -webkit-linear-gradient(rgba(189, 150, 74, 0.85), rgba(189, 150, 74, 0.85)), url("images/skills-md.jpg");
     background-image: linear-gradient(rgba(189, 150, 74, 0.85), rgba(189, 150, 74, 0.85)), url("images/skills-md.jpg");
     background-position: center center;
     background-repeat: no-repeat;
@@ -5479,6 +5499,8 @@ ul {
 }
 .resume-languages {
   width: 100%;
+  background-color: rgba(51, 77, 92, 0.65);
+  background-image: -webkit-linear-gradient(rgba(51, 77, 92, 0.65), rgba(51, 77, 92, 0.65)), url("images/languages-xs.jpg");
   background-image: linear-gradient(rgba(51, 77, 92, 0.65), rgba(51, 77, 92, 0.65)), url("images/languages-xs.jpg");
   background-position: center center;
   background-repeat: no-repeat;
@@ -5491,6 +5513,8 @@ ul {
 @media (min-width: 768px) {
   .resume-languages {
     width: 100%;
+    background-color: rgba(51, 77, 92, 0.65);
+    background-image: -webkit-linear-gradient(rgba(51, 77, 92, 0.65), rgba(51, 77, 92, 0.65)), url("images/languages-md.jpg");
     background-image: linear-gradient(rgba(51, 77, 92, 0.65), rgba(51, 77, 92, 0.65)), url("images/languages-md.jpg");
     background-position: center center;
     background-repeat: no-repeat;
@@ -5503,6 +5527,8 @@ ul {
 }
 .resume-certifications {
   width: 100%;
+  background-color: rgba(226, 124, 62, 0.65);
+  background-image: -webkit-linear-gradient(rgba(226, 124, 62, 0.65), rgba(226, 124, 62, 0.65)), url("images/certifications-xs.jpg");
   background-image: linear-gradient(rgba(226, 124, 62, 0.65), rgba(226, 124, 62, 0.65)), url("images/certifications-xs.jpg");
   background-position: center center;
   background-repeat: no-repeat;
@@ -5515,6 +5541,8 @@ ul {
 @media (min-width: 768px) {
   .resume-certifications {
     width: 100%;
+    background-color: rgba(226, 124, 62, 0.65);
+    background-image: -webkit-linear-gradient(rgba(226, 124, 62, 0.65), rgba(226, 124, 62, 0.65)), url("images/certifications-md.jpg");
     background-image: linear-gradient(rgba(226, 124, 62, 0.65), rgba(226, 124, 62, 0.65)), url("images/certifications-md.jpg");
     background-position: center center;
     background-repeat: no-repeat;
@@ -5529,6 +5557,8 @@ ul {
   padding-top: 150px;
   padding-bottom: 150px;
   width: 100%;
+  background-color: rgba(224, 91, 73, 0.65);
+  background-image: -webkit-linear-gradient(rgba(224, 91, 73, 0.65), rgba(224, 91, 73, 0.65)), url("images/footer-xs.jpg");
   background-image: linear-gradient(rgba(224, 91, 73, 0.65), rgba(224, 91, 73, 0.65)), url("images/footer-xs.jpg");
   background-position: center center;
   background-repeat: no-repeat;
@@ -5541,6 +5571,8 @@ ul {
 @media (min-width: 768px) {
   .resume-footer {
     width: 100%;
+    background-color: rgba(224, 91, 73, 0.65);
+    background-image: -webkit-linear-gradient(rgba(224, 91, 73, 0.65), rgba(224, 91, 73, 0.65)), url("images/footer-md.jpg");
     background-image: linear-gradient(rgba(224, 91, 73, 0.65), rgba(224, 91, 73, 0.65)), url("images/footer-md.jpg");
     background-position: center center;
     background-repeat: no-repeat;
