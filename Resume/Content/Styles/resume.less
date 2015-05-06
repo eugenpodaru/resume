@@ -132,6 +132,8 @@ ul {
 
 .resume-section-background(@color, @img) {
     width: 100%;
+    background-color: @color;
+    background-image: -webkit-linear-gradient( @color, @color ), url(@img);
     background-image: linear-gradient( @color, @color ), url(@img);
     background-position: center center;
     background-repeat: no-repeat;
