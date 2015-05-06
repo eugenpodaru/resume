@@ -148,7 +148,6 @@ CheckLastExitCode "KuduSync failed";
 Push-Location "$DeploymentSource\Resume";
 Write-Output "Running wget grunt task...";
 & grunt wget;
-CheckLastExitCode "Running wget grunt task failed";
 Pop-Location;
 
 # 6. Mirror the site using wget
@@ -163,7 +162,6 @@ Push-Location "$PostDeploymentTemp";
 Write-Output "Clonning the repository from GitHub...";
 CreateDirectory "$GitHubUsername";
 & git clone --branch=master https://${GitHubUsername}:$GitHubAccessToken@github.com/$GitHubUsername/$GitHubUsername.github.io.git .\$GitHubUsername\;
-CheckLastExitCode "Clonning the repository from GitHub failed.";
 Push-Location "$GitHubUsername";
 & git status;
 Pop-Location;
@@ -173,11 +171,8 @@ Pop-Location;
 Push-Location "$PostDeploymentTemp\$GitHubUsername";
 Write-Output "Setting git settings...";
 & git config user.email $GitHubEmail;
-CheckLastExitCode "Setting the email failed.";
 & git config user.name $GitHubUsername;
-CheckLastExitCode "Setting the username failed.";
 & git config push.default matching;
-CheckLastExitCode "Setting push.default failed.";
 Pop-Location;
 
 # 9. Empty the contents of the git repository
@@ -188,7 +183,28 @@ Pop-Location;
 
 # 10. Copy the contents of the static site to the repository
 Push-Location "$PostDeploymentTemp";
+Write-Output "Copying the contents of the static site to the repository";
 Copy-Item -path "static-site\*" -Destination "$GitHubUsername" -Recurse -Force;
+Pop-Location;
+
+# 11. Push the changes to GitHub
+Push-Location "$PostDeploymentTemp\$GitHubUsername";
+Write-Output "Pushing the changes to GitHub...";
+& git status;
+$thereAreChanges = git status | select-string -pattern "Changes not staged for commit:","Untracked files:" -simplematch;
+if ($thereAreChanges -ne $null) { 
+    Write-Output "Committing changes to site...";
+    & git add --all;
+    & git status;
+    & git commit -m "static site regeneration";
+    & git status;
+    Write-Output "Pushing the changes to GitHub...";
+    & git push --quiet;
+    Write-Output "Pushed to GitHub";
+} 
+else { 
+    Write-Output "No changes to documentation to commit"
+}
 Pop-Location;
 
 Write-Output "Finished successfully.";
