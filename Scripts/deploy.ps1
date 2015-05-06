@@ -157,7 +157,15 @@ Write-Output "Clonning the repository from GitHub...";
 CreateDirectory "$GitHubUsername";
 & git clone --branch=master https://${GitHubUsername}:$GitHubAccessToken@github.com/$GitHubUsername/$GitHubUsername.github.io.git .\$GitHubUsername\;
 CheckLastExitCode "Clonning the repository from GitHub failed.";
+Push-Location "$GitHubUsername";
+& git status;
 Pop-Location;
+Pop-Location;
+
+# 6. Empty the contents of the git repository
+Push-Location "$PostDeploymentTemp\$GitHubUsername";
+Write-Output "Cleaning the git repository...";
+Get-ChildItem -Attributes !r | Remove-Item -Recurse -Force;
 
 # 7. Set git settings
 Push-Location "$PostDeploymentTemp\$GitHubUsername";
