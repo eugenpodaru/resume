@@ -98,7 +98,11 @@ ul {
             float: left;
             width: 64px;
             height: 64px;
-            margin: (@navbar-height - 64)/2 5px (@navbar-height - 64)/2 0;
+            margin: (@navbar-height - 64)/2 5px;
+
+            @media(min-width: @grid-float-breakpoint) {
+                margin: (@navbar-height - 64)/2 5px (@navbar-height - 64)/2 0;
+            }
         }
 
         .navbar-title {

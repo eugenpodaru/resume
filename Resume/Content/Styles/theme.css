@@ -5314,7 +5314,12 @@ ul {
   float: left;
   width: 64px;
   height: 64px;
-  margin: 8px 5px 8px 0;
+  margin: 8px 5px;
+}
+@media (min-width: 768px) {
+  .navbar-fixed-top .navbar-header .navbar-header-logo {
+    margin: 8px 5px 8px 0;
+  }
 }
 .navbar-fixed-top .navbar-header .navbar-title {
   float: left;
