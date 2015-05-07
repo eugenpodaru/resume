@@ -5314,7 +5314,7 @@ ul {
   float: left;
   width: 64px;
   height: 64px;
-  margin: 8px 5px;
+  margin: 8px 5px 8px 0;
 }
 .navbar-fixed-top .navbar-header .navbar-title {
   float: left;
@@ -5378,12 +5378,19 @@ ul {
   margin: 0 5px;
 }
 .resume-header .resume-header-body .line {
-  margin: 25px auto 30px;
+  margin: 20px auto 20px;
   padding: 0;
   max-width: 400px;
 }
-.resume-header .resume-header-body .btn-rounded {
+.resume-header .resume-header-body .btn-rounded.more {
+  border: none;
   margin-top: 30px;
+}
+.resume-header .resume-header-body .btn-rounded.download {
+  width: auto;
+  height: auto;
+  margin-top: 30px;
+  font-size: inherit;
 }
 .resume-education {
   width: 100%;
@@ -5588,7 +5595,7 @@ ul {
   height: 60px;
   padding: 7px 12px;
   border: 1px solid white;
-  border-radius: 33% !important;
+  border-radius: 6px !important;
   font-size: 36px;
   background-color: transparent;
   -webkit-transition: background 0.5s ease-in-out;
