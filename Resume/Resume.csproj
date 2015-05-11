@@ -134,8 +134,10 @@
     <Content Include="Content\lib\font-awesome\css\font-awesome.css" />
     <Content Include="Content\lib\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\lib\font-awesome\fonts\fontawesome-webfont.svg" />
-    <Content Include="Content\lib\jquery-easing\jquery.easing.js" />
-    <Content Include="Content\lib\jquery-easing\jquery.easing.min.js" />
+    <Content Include="Content\lib\jquery.easing\example\example.html" />
+    <Content Include="Content\lib\jquery.easing\jquery.easing.compatibility.js" />
+    <Content Include="Content\lib\jquery.easing\jquery.easing.js" />
+    <Content Include="Content\lib\jquery.easing\jquery.easing.min.js" />
     <Content Include="Content\lib\jquery\dist\jquery.js" />
     <Content Include="Content\lib\jquery\dist\jquery.min.js" />
     <Content Include="Content\lib\jquery\MIT-LICENSE.txt" />
@@ -384,10 +386,6 @@
     <Content Include="Content\Styles\bootstrap.less" />
     <Content Include="Content\Styles\theme.less" />
     <Content Include="Content\Styles\variables.less" />
-    <Content Include="Content\lib\jquery-easing\.bower.json" />
-    <Content Include="Content\lib\jquery-easing\component.json" />
-    <Content Include="Content\lib\jquery-easing\LICENSE" />
-    <Content Include="Content\lib\jquery-easing\Makefile" />
     <Content Include="Content\Styles\resume.less" />
     <Content Include="Content\Styles\fonts.less" />
     <Content Include="Content\Styles\navbar.less" />
@@ -448,6 +446,10 @@
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Content\Assets\Resume.pdf" />
     <Content Include="Views\Shared\_GoogleAnalytics.cshtml" />
+    <Content Include="Content\lib\jquery.easing\.bower.json" />
+    <Content Include="Content\lib\jquery.easing\LICENSE" />
+    <Content Include="Content\lib\jquery.easing\package.json" />
+    <Content Include="Content\lib\jquery.easing\README.md" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

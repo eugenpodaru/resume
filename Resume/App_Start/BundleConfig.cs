@@ -9,7 +9,7 @@
             // javascript bundles
             bundles.Add(new ScriptBundle("~/bundles/js")
                 .Include("~/Content/lib/jquery/dist/jquery.min.js")
-                .Include("~/Content/lib/jquery-easing/jquery.easing.min.js")
+                .Include("~/Content/lib/jquery.easing/jquery.easing.min.js")
                 .Include("~/Content/lib/bootstrap/dist/js/bootstrap.min.js")
                 .Include("~/Content/Scripts/resume.min.js"));
 
