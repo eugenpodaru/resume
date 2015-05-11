@@ -1,26 +1,26 @@
 {
-  "name": "Resume",
-  "version": "0.2.5",
-  "author": {
-    "name": "Eugen Podaru",
-    "email": "eugen.podaru@live.com"
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
+    "name": "Resume",
+    "version": "0.2.6",
+    "author": {
+        "name": "Eugen Podaru",
+        "email": "eugen.podaru@live.com"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://opensource.org/licenses/MIT"
+        }
+    ],
+    "description": "Eugen Podaru's Resume",
+    "private": true,
+    "engines": {
+        "node": "0.12.2"
+    },
+    "devDependencies": {
+        "dedupe": "~1.0.1",
+        "grunt": "~0.4.5",
+        "grunt-bower-install-simple": "~1.1.2",
+        "grunt-contrib-clean": "~0.6.0",
+        "grunt-wget": "~0.1.3"
     }
-  ],
-  "description": "Eugen Podaru's Resume",
-  "private": true,
-  "engines": {
-    "node": "0.12.2"
-  },
-  "devDependencies": {
-    "dedupe": "^1.0.1",
-    "grunt": "^0.4.5",
-    "grunt-bower-install-simple": "^1.1.2",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-wget": "^0.1.3"
-  }
 }
