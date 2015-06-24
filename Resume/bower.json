@@ -22,7 +22,7 @@
     ],
     "dependencies": {
         "jquery": "~2.1.4",
-        "bootstrap": "~3.3.4",
+        "bootstrap": "~3.3.5",
         "jquery.easing": "gdsmith/jquery.easing",
         "font-awesome": "~4.3.0"
     }
