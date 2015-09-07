@@ -2,9 +2,10 @@
 
 ## Release notes
 
-### Release 0.3.2
+### Release 0.3.3
  - disable optimizations in release
  - add app.js to the project
+ - execute gulp tasks during the deployment
 
 ### Release 0.3.0
  - switch from grunt to gulp
