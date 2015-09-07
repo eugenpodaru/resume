@@ -2,9 +2,8 @@
 
 ## Release notes
 
-### Release 0.3.3
+### Release 0.3.4
  - disable optimizations in release
- - add app.js to the project
  - execute gulp tasks during the deployment
 
 ### Release 0.3.0
