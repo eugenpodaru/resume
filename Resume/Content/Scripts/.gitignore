@@ -1,0 +1,4 @@
+#ignore js files and js.map files
+*.js
+*.js.map
+*.min.js

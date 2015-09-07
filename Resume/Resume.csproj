@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -21,6 +22,8 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
+    <TypeScriptToolsVersion>1.5</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -224,10 +227,6 @@
     <Content Include="Content\lib\jquery\src\var\support.js" />
     <Content Include="Content\lib\jquery\src\var\toString.js" />
     <Content Include="Content\lib\jquery\src\wrap.js" />
-    <Content Include="Content\Scripts\resume.js" />
-    <Content Include="Content\Scripts\resume.min.js">
-      <DependentUpon>resume.js</DependentUpon>
-    </Content>
     <Content Include="Content\Styles\fonts.css">
       <DependentUpon>fonts.less</DependentUpon>
     </Content>
@@ -267,7 +266,7 @@
       <DependentUpon>theme.css</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
-    <Content Include="Gruntfile.js" />
+    <Content Include="gulpfile.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -431,9 +430,6 @@
     <Content Include="Content\lib\font-awesome\scss\_rotated-flipped.scss" />
     <Content Include="Content\lib\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\lib\font-awesome\scss\_variables.scss" />
-    <Content Include="Content\Scripts\resume.min.js.map">
-      <DependentUpon>resume.min.js</DependentUpon>
-    </Content>
     <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Education.cshtml" />
@@ -450,6 +446,7 @@
     <Content Include="Content\lib\jquery.easing\LICENSE" />
     <Content Include="Content\lib\jquery.easing\package.json" />
     <Content Include="Content\lib\jquery.easing\README.md" />
+    <Content Include="tsd.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -458,11 +455,21 @@
     </None>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <TypeScriptCompile Include="Content\lib\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="Content\lib\typings\tsd.d.ts" />
+    <TypeScriptCompile Include="Content\Scripts\app\resume.ts" />
+    <TypeScriptCompile Include="Content\Scripts\app\_references.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>

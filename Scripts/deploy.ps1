@@ -73,7 +73,7 @@ if(Test-Path Env:\DEPLOYMENT_TEMP){
 $PostDeploymentTemp = "$env:TEMP\__postDeployTemp" + (Get-Random);
 CreateDirectory $PostDeploymentTemp;
 
-$MSBuildPath = "$env:windir\Microsoft.NET\Framework\v4.0.30319\msbuild.exe";
+$MSBuildPath = "$env:PROGRAMFILES(X86)\MSBuild\14.0\Bin\msbuild.exe";
 if(Test-Path Env:\MSBUILD_PATH){
     $MSBuildPath = $env:MSBUILD_PATH;
 }
@@ -106,7 +106,7 @@ Write-Output "Restoring NuGet packages...";
 & nuget restore "$DeploymentSource\Resume.sln";
 CheckLastExitCode "Could not restore NuGet packages";
 
-# 2. Install npm packages, bower, grunt, and bower packages
+# 2. Install npm packages, bower and tsd
 Push-Location "$DeploymentSource\Resume";
 
 Write-Output "Installing npm packages...";
@@ -117,17 +117,17 @@ Write-Output "Running npm dedupe...";
 & npm dedupe;
 CheckLastExitCode "Running npm dedupe failed";
 
-Write-Output "Installing grunt-cli...";
-& npm install grunt-cli -g;
-CheckLastExitCode "Installing grunt-cli failed";
-
 Write-Output "Installing bower...";
 & npm install bower -g;
 CheckLastExitCode "Installing bower failed";
 
-Write-Output "Running bower-install grunt task...";
-& grunt bower-install;
-CheckLastExitCode "Running bower-install task failed";
+Write-Output "Installing tsd...";
+& npm install tsd -g;
+CheckLastExitCode "Installing tsd failed";
+
+Write-Output "Running tsd update...";
+& tsd update -o -s;
+CheckLastExitCode "Running tsd update failed";
 
 Pop-Location;
 
@@ -144,20 +144,14 @@ CheckLastExitCode "KuduSync failed";
 # PostDeployment
 # -------------
 
-# 5. Download the wget client
-Push-Location "$DeploymentSource\Resume";
-Write-Output "Running wget grunt task...";
-& grunt wget;
-Pop-Location;
-
-# 6. Mirror the site using wget
+# 5. Mirror the site using wget
 Push-Location "$PostDeploymentTemp";
 Write-Output "Mirroring the site using wget...";
 & "$DeploymentSource\Resume\bin\wget.exe" --recursive --no-check-certificate --html-extension --no-host-directories --directory-prefix=static-site https://${GitHubUsername}.azurewebsites.net -o wget.log;
 & cat wget.log;
 Pop-Location;
 
-# 7. Clone the repository from GitHub
+# 6. Clone the repository from GitHub
 Push-Location "$PostDeploymentTemp";
 Write-Output "Clonning the repository from GitHub...";
 CreateDirectory "$GitHubUsername";
@@ -167,7 +161,7 @@ Push-Location "$GitHubUsername";
 Pop-Location;
 Pop-Location;
 
-# 8. Set git settings
+# 7. Set git settings
 Push-Location "$PostDeploymentTemp\$GitHubUsername";
 Write-Output "Setting git settings...";
 & git config user.email $GitHubEmail;
@@ -175,19 +169,19 @@ Write-Output "Setting git settings...";
 & git config push.default matching;
 Pop-Location;
 
-# 9. Empty the contents of the git repository
+# 8. Empty the contents of the git repository
 Push-Location "$PostDeploymentTemp\$GitHubUsername";
 Write-Output "Cleaning the git repository...";
 Get-ChildItem -Attributes !r | Remove-Item -Recurse -Force;
 Pop-Location;
 
-# 10. Copy the contents of the static site to the repository
+# 9. Copy the contents of the static site to the repository
 Push-Location "$PostDeploymentTemp";
 Write-Output "Copying the contents of the static site to the repository";
 Copy-Item -path "static-site\*" -Destination "$GitHubUsername" -Recurse -Force;
 Pop-Location;
 
-# 11. Push the changes to GitHub
+# 10. Push the changes to GitHub
 Push-Location "$PostDeploymentTemp\$GitHubUsername";
 Write-Output "Pushing the changes to GitHub...";
 & git status;

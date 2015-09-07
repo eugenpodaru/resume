@@ -8,10 +8,7 @@
         {
             // javascript bundles
             bundles.Add(new ScriptBundle("~/bundles/js")
-                .Include("~/Content/lib/jquery/dist/jquery.min.js")
-                .Include("~/Content/lib/jquery.easing/jquery.easing.min.js")
-                .Include("~/Content/lib/bootstrap/dist/js/bootstrap.min.js")
-                .Include("~/Content/Scripts/resume.min.js"));
+                .Include("~/Content/Scripts/app/app.js"));
 
             //style sheet bundles
 
@@ -23,7 +20,7 @@
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
             BundleTable.EnableOptimizations = false;
 #else
-            BundleTable.EnableOptimizations = false;
+            BundleTable.EnableOptimizations = true;
 #endif
         }
     }
