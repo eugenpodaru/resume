@@ -30,7 +30,7 @@ var appSources = mainSources.concat([
 
 var appSource = 'Content/Scripts/app/app.js';
 
-gulp.task('before-build', ['initialize', 'install-bower-packages', 'wget'], function () {
+gulp.task('before-build', ['install-bower-packages', 'wget'], function () {
 });
 
 gulp.task('after-build', ['minify-css', 'minify-app-javascript'], function () {
@@ -43,14 +43,6 @@ gulp.task('wget', function () {
 
 gulp.task('clean', function () {
     return del(['Content/lib/**/*', '!Content/lib/typings', '!Content/lib/typings/**/*']);
-});
-
-gulp.task('initialize', function () {
-    return fs.exists(appSource, function (exists) {
-        if (!exists) {
-            fs.writeFile(appSource, "");
-        }
-    })
 });
 
 //the task to install bower packages
