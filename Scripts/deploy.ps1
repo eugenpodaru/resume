@@ -191,7 +191,7 @@ CheckLastExitCode "KuduSync failed";
 # 7. Mirror the site using wget
 Push-Location "$PostDeploymentTemp";
 Write-Output "Mirroring the site using wget...";
-& "$DeploymentSource\Resume\bin\wget.exe" --recursive --no-check-certificate --html-extension --no-host-directories --directory-prefix=static-site https://${GitHubUsername}.azurewebsites.net -o wget.log;
+& "$DeploymentSource\Resume\bin\wget.exe" --recursive --html-extension --no-host-directories --directory-prefix=static-site http://${GitHubUsername}.azurewebsites.net -o wget.log;
 & cat wget.log;
 Pop-Location;
 
