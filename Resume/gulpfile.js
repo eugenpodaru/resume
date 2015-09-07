@@ -30,7 +30,7 @@ var appSources = mainSources.concat([
 
 var appSource = 'Content/Scripts/app/app.js';
 
-gulp.task('before-build', ['install-bower-packages', 'minify-css', 'wget'], function () {
+gulp.task('before-build', ['minify-css', 'wget'], function () {
 });
 
 gulp.task('after-build', ['minify-app-javascript'], function () {
@@ -60,7 +60,7 @@ gulp.task('minify-css', ['compile-less'], function () {
 });
 
 //the task to compile less files
-gulp.task('compile-less', function () {
+gulp.task('compile-less', ['install-bower-packages'], function () {
     return gulp.src('./Content/Styles/theme.less')
         .pipe(sourcemaps.init())
         .pipe(less({ paths: [path.join(__dirname, 'less', 'includes')] }))
