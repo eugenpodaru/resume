@@ -106,12 +106,16 @@ Write-Output "Restoring NuGet packages...";
 & nuget restore "$DeploymentSource\Resume.sln";
 CheckLastExitCode "Could not restore NuGet packages";
 
-# 2. Install npm packages, bower and tsd
+# 2. Install npm packages, bower, gulp and tsd
 Push-Location "$DeploymentSource\Resume";
 
 Write-Output "Installing npm packages...";
 & npm install;
 CheckLastExitCode "Installing npm packages failed";
+
+Write-Output "Pruning npm packages...";
+& npm prune;
+CheckLastExitCode "Pruning npm packages failed";
 
 Write-Output "Running npm dedupe...";
 & npm dedupe;
@@ -125,18 +129,36 @@ Write-Output "Installing tsd...";
 & npm install tsd -g;
 CheckLastExitCode "Installing tsd failed";
 
+Write-Output "Installing gulp...";
+& npm install gulp-cli -g;
+CheckLastExitCode "Installing gulp failed";
+
 Write-Output "Running tsd update...";
 & tsd update -o -s;
 CheckLastExitCode "Running tsd update failed";
 
 Pop-Location;
 
-# 3. Build to the temporary path
+# 3. Run the before-build gulp task
+Push-Location "$DeploymentSource\Resume";
+Write-Output "Running gulp before-build task...";
+& gulp before-build;
+CheckLastExitCode "Running gulp before-build task failed";
+Pop-Location;
+
+# 4. Build to the temporary path
 Write-Output "Build the solution";
 &$MSBuildPath "$DeploymentSource\Resume\Resume.csproj" /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="$DeploymentTemp" /p:AutoParameterizationWebConfigConnectionStrings=false /p:Configuration=Release /p:SolutionDir="$DeploymentSource\.\\" $ScmBuildArgs;
 CheckLastExitCode "Build failed.";
 
-# 4. KuduSync
+# 5. Run the after-build gulp task
+Push-Location "$DeploymentTemp";
+Write-Output "Running gulp after-build task...";
+& gulp after-build;
+CheckLastExitCode "Running gulp after-build task failed";
+Pop-Location;
+
+# 6. KuduSync
 Write-Output "KuduSync";
 &$KuduSyncCmd -v 50 -f "$DeploymentTemp" -t "$DeploymentTarget" -n "$NextManifestPath" -p "$PreviousManifestPath" -i ".git;.hg;.deployment;deploy.cmd";
 CheckLastExitCode "KuduSync failed";
@@ -144,14 +166,14 @@ CheckLastExitCode "KuduSync failed";
 # PostDeployment
 # -------------
 
-# 5. Mirror the site using wget
+# 7. Mirror the site using wget
 Push-Location "$PostDeploymentTemp";
 Write-Output "Mirroring the site using wget...";
 & "$DeploymentSource\Resume\bin\wget.exe" --recursive --no-check-certificate --html-extension --no-host-directories --directory-prefix=static-site https://${GitHubUsername}.azurewebsites.net -o wget.log;
 & cat wget.log;
 Pop-Location;
 
-# 6. Clone the repository from GitHub
+# 8. Clone the repository from GitHub
 Push-Location "$PostDeploymentTemp";
 Write-Output "Clonning the repository from GitHub...";
 CreateDirectory "$GitHubUsername";
@@ -161,7 +183,7 @@ Push-Location "$GitHubUsername";
 Pop-Location;
 Pop-Location;
 
-# 7. Set git settings
+# 9. Set git settings
 Push-Location "$PostDeploymentTemp\$GitHubUsername";
 Write-Output "Setting git settings...";
 & git config user.email $GitHubEmail;
@@ -169,19 +191,19 @@ Write-Output "Setting git settings...";
 & git config push.default matching;
 Pop-Location;
 
-# 8. Empty the contents of the git repository
+# 10. Empty the contents of the git repository
 Push-Location "$PostDeploymentTemp\$GitHubUsername";
 Write-Output "Cleaning the git repository...";
 Get-ChildItem -Attributes !r | Remove-Item -Recurse -Force;
 Pop-Location;
 
-# 9. Copy the contents of the static site to the repository
+# 11. Copy the contents of the static site to the repository
 Push-Location "$PostDeploymentTemp";
 Write-Output "Copying the contents of the static site to the repository";
 Copy-Item -path "static-site\*" -Destination "$GitHubUsername" -Recurse -Force;
 Pop-Location;
 
-# 10. Push the changes to GitHub
+# 12. Push the changes to GitHub
 Push-Location "$PostDeploymentTemp\$GitHubUsername";
 Write-Output "Pushing the changes to GitHub...";
 & git status;
