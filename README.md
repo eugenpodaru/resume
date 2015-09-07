@@ -2,7 +2,7 @@
 
 ## Release notes
 
-### Release 0.3.9
+### Release 0.3.10
  - disable optimizations in release
  - execute gulp tasks during the deployment
 
