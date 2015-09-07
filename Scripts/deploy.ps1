@@ -121,6 +121,10 @@ Write-Output "Running npm dedupe...";
 & npm dedupe;
 CheckLastExitCode "Running npm dedupe failed";
 
+Write-Output "Installing rimraf...";
+& npm install rimraf -g;
+CheckLastExitCode "Installing rimraf failed";
+
 Write-Output "Installing bower...";
 & npm install bower -g;
 CheckLastExitCode "Installing bower failed";
@@ -171,7 +175,7 @@ Write-Output "Running gulp after-build task...";
 CheckLastExitCode "Running gulp after-build task failed";
 
 Write-Output "Removing the node_modules directory";
-Remove-Item -Recurse -Force node_modules
+& rimraf node_modules
 CheckLastExitCode "Removing the node_modules directory failed";
 
 Pop-Location;
