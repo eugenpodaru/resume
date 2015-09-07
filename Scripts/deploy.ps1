@@ -153,6 +153,19 @@ CheckLastExitCode "Build failed.";
 
 # 5. Run the after-build gulp task
 Push-Location "$DeploymentTemp";
+
+Write-Output "Installing npm packages...";
+& npm install;
+CheckLastExitCode "Installing npm packages failed";
+
+Write-Output "Pruning npm packages...";
+& npm prune;
+CheckLastExitCode "Pruning npm packages failed";
+
+Write-Output "Running npm dedupe...";
+& npm dedupe;
+CheckLastExitCode "Running npm dedupe failed";
+
 Write-Output "Running gulp after-build task...";
 & gulp after-build;
 CheckLastExitCode "Running gulp after-build task failed";
