@@ -8,7 +8,7 @@
         {
             // javascript bundles
             bundles.Add(new ScriptBundle("~/bundles/js")
-                .Include("~/Content/Scripts/app/app.js"));
+                .Include("~/Content/Scripts/app/app.min.js"));
 
             //style sheet bundles
 
@@ -20,7 +20,7 @@
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
             BundleTable.EnableOptimizations = false;
 #else
-            BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = false;
 #endif
         }
     }
