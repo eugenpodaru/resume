@@ -169,6 +169,11 @@ CheckLastExitCode "Running npm dedupe failed";
 Write-Output "Running gulp after-build task...";
 & gulp after-build;
 CheckLastExitCode "Running gulp after-build task failed";
+
+Write-Output "Removing the node_modules directory";
+Remove-Item -Recurse -Force node_modules
+CheckLastExitCode "Removing the node_modules directory failed";
+
 Pop-Location;
 
 # 6. KuduSync
