@@ -30,10 +30,10 @@ var appSources = mainSources.concat([
 
 var appSource = 'Content/Scripts/app/app.js';
 
-gulp.task('before-build', ['install-bower-packages', 'wget'], function () {
+gulp.task('before-build', ['install-bower-packages', 'minify-css', 'wget'], function () {
 });
 
-gulp.task('after-build', ['minify-css', 'minify-app-javascript'], function () {
+gulp.task('after-build', ['minify-app-javascript'], function () {
 });
 
 gulp.task('wget', function () {
