@@ -2,7 +2,7 @@
 
 ## Release notes
 
-### Release 0.3.11
+### Release 0.3.12
  - add the link to the online resume to the pdf resume
  - add typescript as a competence
  - update the typescript version and the tsd typings
