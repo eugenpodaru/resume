@@ -16,6 +16,9 @@ Output/
 [Bb]in/
 [Oo]bj/
 
+# Visual Studio 2015 folder
+.vs/
+
 #T4 generated files
 *.generated.cs
 *.generated.xml
